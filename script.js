@@ -1,6 +1,11 @@
 var button = document.getElementById("enter");
 var input = document.getElementById("userinput");
-var ol = document.querySelector("ol");
+var teamQueue = document.querySelector("#team-queue");
+
+let teamsNumber = document.querySelector("#teams-number");
+let teamsRow = document.querySelector("#teams-row");
+let assign = document.querySelector(".assign")
+
 
 
 function inputLength() {
@@ -12,27 +17,40 @@ button.addEventListener("click", function () {
         var li = document.createElement("li");
         li.className = 'list-group-item';
         li.textContent = input.value;
-        ol.appendChild(li);
+        teamQueue.appendChild(li);
         input.value = "";
     }
 
 })
+window.onload = function () {
+    createTeams()
+}
+
+function createTeams() {
+    for (let i = 0; i < teamsNumber.innerHTML; i++) {
+        teamsRow.innerHTML +=
+            `<div class="col-3 team">
+            <h3>Teams ${i + 1}</h3>
+            <ul class="list-group">
+
+            </ul>
+        </div>`
+    }
+}
 
 
-var button2 = document.getElementById("button-add2");
-var input2 = document.getElementById("numberOfTeams");
-var ul = document.querySelector("ul")
 
+function assignValue() {
+    const member = teamQueue.children[0]
 
-button2.addEventListener("click", function () {
-    let li = document.createElement("li");
-    li.className = "number-of-team";
-    li.textContent = input2.value
-    ul.appendChild(li)
+    if (!member) return
+    const teams = document.querySelectorAll(".team")
+    const rand = Math.floor(Math.random() * teams.length)
+    teams[rand].appendChild(member)
+}
 
+assign.addEventListener("click", assignValue)
 
-
-})
 
 
 //let assign = document.querySelectorAll('assign')
